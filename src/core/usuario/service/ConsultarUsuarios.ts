@@ -5,7 +5,6 @@ import Usuario from "../model/Usuario";
 export default class ConsultarUsuarios implements UseCase<void,Usuario[]>{
     constructor(readonly repositorio:RepositoryUsuario){}
     async executar(): Promise<Usuario[]> {
-        console.log('ola')
         return await this.repositorio.buscarTodos();
     }
 

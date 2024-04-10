@@ -6,10 +6,10 @@ export default class RegistrarUsuarioController{
         readonly server: Express,
         readonly useCase:RegistrarUsuario
         ){
-            server.post('/usuarios',async ({body})=>{ 
+            server.post('/usuarios',async ({body},response)=>{ 
                 const { nome,email,senha } = body as any;
-                await useCase.executar({nome,email,senha})
-               
+                const usuarioCriado = await useCase.executar({nome,email,senha})
+                return response.json(usuarioCriado)
             })
         }
 }

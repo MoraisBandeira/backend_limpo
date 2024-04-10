@@ -10,6 +10,7 @@ import ConsultarUsuarios from './core/usuario/service/ConsultarUsuarios';
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 
 //onst repositorioUsuario = new RepositorioUsuarioMemoria([]);
 const repositorioUsuario = new RepositorioUsuarioPrisma();
