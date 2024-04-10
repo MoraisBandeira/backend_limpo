@@ -12,7 +12,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
-//onst repositorioUsuario = new RepositorioUsuarioMemoria([]);
+//const repositorioUsuario = new RepositorioUsuarioMemoria([]);
 const repositorioUsuario = new RepositorioUsuarioPrisma();
 const registrarUsuario = new RegistrarUsuario(repositorioUsuario);
 const consultarUsuarios = new ConsultarUsuarios(repositorioUsuario);
