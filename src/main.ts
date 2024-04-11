@@ -1,11 +1,10 @@
 import express  from 'express'
-import { Router, Request, Response } from 'express';
-import RepositorioUsuarioMemoria from './drivers/memoria/RepositorioUsuarioMemoria';
 import RegistrarUsuario from './core/usuario/service/RegistrarUsuario';
-import RegistrarUsuarioController from './adapters/RegistrarUsuarioController';
-import RepositorioUsuarioPrisma from './drivers/prisma/RepositorioUsuarioPrisma';
-import ConsultarUsuariosController from './adapters/ConsultUsuariosController';
 import ConsultarUsuarios from './core/usuario/service/ConsultarUsuarios';
+import RegistrarUsuarioController from './adapters/RegistrarUsuarioController';
+import ConsultarUsuariosController from './adapters/ConsultUsuariosController';
+import RepositorioUsuarioPrisma from './drivers/prisma/RepositorioUsuarioPrisma';
+import RepositorioUsuarioMemoria from './drivers/memoria/RepositorioUsuarioMemoria';
 
 const app = express();
 
