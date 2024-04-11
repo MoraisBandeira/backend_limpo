@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import RepositoryUsuario from "../../core/usuario/model/RepositorioUsuario";
 import Usuario from "../../core/usuario/model/Usuario";
+import RepositoryUsuario from "../../core/usuario/model/RepositorioUsuario";
 
 export default class RepositorioUsuarioPrisma implements RepositoryUsuario{
     private prisma:PrismaClient
