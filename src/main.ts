@@ -1,8 +1,12 @@
 import express  from 'express'
 import RegistrarUsuario from './core/usuario/service/RegistrarUsuario';
 import ConsultarUsuarios from './core/usuario/service/ConsultarUsuarios';
+import BuscarUsuarioPorId from './core/usuario/service/BuscarUsuarioPorId';
+
 import RegistrarUsuarioController from './adapters/RegistrarUsuarioController';
 import ConsultarUsuariosController from './adapters/ConsultUsuariosController';
+import UsuarioPorIdController from './adapters/UsuarioPorIdController';
+
 import RepositorioUsuarioPrisma from './drivers/prisma/RepositorioUsuarioPrisma';
 import RepositorioUsuarioMemoria from './drivers/memoria/RepositorioUsuarioMemoria';
 
@@ -15,8 +19,10 @@ app.use(express.json())
 const repositorioUsuario = new RepositorioUsuarioPrisma();
 const registrarUsuario = new RegistrarUsuario(repositorioUsuario);
 const consultarUsuarios = new ConsultarUsuarios(repositorioUsuario);
+const buscarUsuarioId = new BuscarUsuarioPorId(repositorioUsuario);
 new ConsultarUsuariosController(app,consultarUsuarios)
 new RegistrarUsuarioController(app ,registrarUsuario)
+new UsuarioPorIdController(app,buscarUsuarioId),
 
 
 

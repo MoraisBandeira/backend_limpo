@@ -3,6 +3,12 @@ import Usuario from "../../core/usuario/model/Usuario";
 
 export default class RepositorioUsuarioMemoria implements RepositorioUsuario{
     constructor(private readonly usuarios:Usuario[]){}
+    buscarUsuarioId(id: number): Promise<Usuario> {
+        throw new Error("Method not implemented.");
+    }
+    consultarPorEmail(email: string): Promise<Usuario | null> {
+        throw new Error("Method not implemented.");
+    }
     async buscarTodos(): Promise<Usuario[]> {
         return this.usuarios;
     }

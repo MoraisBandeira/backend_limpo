@@ -7,6 +7,13 @@ export default class RepositorioUsuarioPrisma implements RepositoryUsuario{
     constructor(){
         this.prisma = new PrismaClient();
     }
+    async buscarUsuarioId(id: number): Promise<IUsuario> {
+        const user = await this.prisma.usuario.findFirst({where:{id}})
+        if(user){
+            return user;
+        }
+        throw new Error('Usuario não encontrado!')
+    }
     async buscarTodos(): Promise<IUsuario[]> {
         const top = await this.prisma.usuario.findMany()
         return top
