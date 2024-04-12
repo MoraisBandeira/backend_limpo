@@ -1,6 +1,7 @@
-import Usuario from "../model/Usuario";
+import IUsuario from "../model/Usuario";
 import UseCase from "../../shared/UseCase";
 import RepositoryUsuario from "../model/RepositorioUsuario";
+import { Usuario } from "../model/Usuario";
 
 interface InputDTO{
     nome:  string
@@ -13,21 +14,29 @@ interface OutputDTO {
     email?: string
     created_at?:Date
 }
-export default class RegistrarUsuario implements UseCase<InputDTO,OutputDTO>{
+export default class RegistrarUsuario implements UseCase<InputDTO,OutputDTO|void>{
 
     constructor(private readonly repositorio:RepositoryUsuario){}
     
-    async executar(input: InputDTO): Promise<OutputDTO> {
-       const {nome,email,senha} = input
-       const usuarioExistente = await this.repositorio.consutarPorEmail(email);
-       if(usuarioExistente){
-        throw new Error("usuario já existe")
-       }
-
-       return this.mapper(await this.repositorio.registrar({nome,email,senha}))
+    async executar(input: InputDTO): Promise<OutputDTO|void> {
+        try {
+            const usuarioExistente = await this.repositorio.consultarPorEmail(input.email);
+            if(usuarioExistente){
+                throw new Error("usuario já existe")
+            }
+            const user = Usuario.create(input)
+            const registerUser:IUsuario={
+                nome:user.getNome.value,
+                email:user.getEmail.value,
+                senha:user.getSenha.value
+            } 
+            return await this.mapper(await this.repositorio.registrar(registerUser))
+        } catch (err) {
+            console.log(err)
+        }
     }
 
-    private mapper(user:Usuario):OutputDTO{
+    private mapper(user:IUsuario):OutputDTO{
         return{
             id:user.id,
             nome:user.nome,

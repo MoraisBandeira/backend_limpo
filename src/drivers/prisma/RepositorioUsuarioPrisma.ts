@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import Usuario from "../../core/usuario/model/Usuario";
+import IUsuario from "../../core/usuario/model/Usuario";
 import RepositoryUsuario from "../../core/usuario/model/RepositorioUsuario";
 
 export default class RepositorioUsuarioPrisma implements RepositoryUsuario{
@@ -7,25 +7,25 @@ export default class RepositorioUsuarioPrisma implements RepositoryUsuario{
     constructor(){
         this.prisma = new PrismaClient();
     }
-    async buscarTodos(): Promise<Usuario[]> {
+    async buscarTodos(): Promise<IUsuario[]> {
         const top = await this.prisma.usuario.findMany()
         return top
     }
-    async registrar(usuario: Usuario): Promise<Usuario> {
+    async registrar(usuario: IUsuario): Promise<IUsuario> {
         return await this.prisma.usuario.create({data:usuario})
     }
-    atualizar(): Promise<Usuario | null> {
+    atualizar(): Promise<IUsuario | null> {
         throw new Error("Method not implemented.");
     }
-    async consutarPorEmail(email: string): Promise<Usuario | null> {
+    async consultarPorEmail(email: string): Promise<IUsuario | null> {
        return await this.prisma.usuario.findFirst({where:{
         email
        }})
     }
-    remover(): Promise<Usuario | null> {
+    remover(): Promise<IUsuario | null> {
         throw new Error("Method not implemented.");
     }
-    apagar(): Promise<Usuario | null> {
+    apagar(): Promise<IUsuario | null> {
         throw new Error("Method not implemented.");
     }
     
