@@ -49,4 +49,32 @@ describe('Teste da classe Validate', () => {
             expect(Validate.detectarNumeros(texto)).toBe(false);
         });
     });
+
+    describe('Função stringMax', () => {
+        it('deve retornar true quando o comprimento da string é maior ou igual ao máximo permitido', () => {
+            const value = 'Lorem ipsum dolor sit amet';
+            const comprimento = 10;
+            expect(Validate.stringMax(value, comprimento)).toBe(true);
+        });
+
+        it('deve retornar false quando o comprimento da string é menor que o máximo permitido', () => {
+            const value = 'Lorem';
+            const comprimento = 10;
+            expect(Validate.stringMax(value, comprimento)).toBe(false);
+        });
+    });
+
+    describe('Função stringMin', () => {
+        it('deve retornar true quando o comprimento da string é menor ou igual ao mínimo permitido', () => {
+            const value = 'Lorem';
+            const comprimento = 10;
+            expect(Validate.stringMin(value, comprimento)).toBe(true);
+        });
+
+        it('deve retornar false quando o comprimento da string é maior que o mínimo permitido', () => {
+            const value = 'Lorem ipsum dolor sit amet';
+            const comprimento = 10;
+            expect(Validate.stringMin(value, comprimento)).toBe(false);
+        });
+    });
 });
