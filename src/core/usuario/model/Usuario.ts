@@ -28,8 +28,14 @@ export class Usuario{
         return new Usuario(usuario)
     }
 
-    get getNome():Nome|Error{
+    get getNome():Nome{
         return this.nome;
+    }
+    get getEmail():Email{
+        return this.email;
+    }
+    get getSenha():Senha{
+        return this.senha;
     }
 }
 export abstract class Validate {
@@ -48,11 +54,23 @@ export abstract class Validate {
     }
     static detectarCaracteresEspeciais(nome: string): boolean {
         const regex = /[^\w\sÀ-ÿ'-]/;
-        return !regex.test(nome);
+        return regex.test(nome);
     }
     static  detectarNumeros(texto: string): boolean {
         const regex = /\d/;
-        return !regex.test(texto);
+        return regex.test(texto);
+    }
+    static stringMax(value:string,comprimento:number):boolean{
+        if(value.length >= comprimento){
+            return true
+        }
+        return false
+    }
+    static stringMin(value:string,comprimento:number):boolean{
+        if(value.length <= comprimento){
+            return true
+        }
+        return false
     }
 }
 
@@ -65,7 +83,7 @@ export class Nome extends Validate{
         Object.freeze(this);
     }
     static create(nome:string):Nome{
-        if(this.detectarCaracteresEspeciais(nome),this.detectarNumeros(nome)){
+        if(!this.detectarCaracteresEspeciais(nome) && !this.detectarNumeros(nome)){
             return new Nome(nome);
         }
         throw Error('Nome Invalido');
@@ -95,15 +113,21 @@ export class Email extends Validate{
     }
 }
 
-export class Senha {
+export class Senha extends Validate{
     private readonly senha:string;
 
     private constructor(senha:string){
+        super();
         this.senha = senha;
     }
 
     static create(senha:string):Senha{
-        return new Senha(senha);
+        const LENGTHMAX = 16;
+        const LENGTHMIN = 5;
+        if(senha.length >= LENGTHMIN && senha.length <= LENGTHMAX){
+            return new Senha(senha);
+        }
+        throw new Error('Senha Invalida')
     }
     get value():string{
         return this.senha;
