@@ -1,22 +1,26 @@
 import jest from "jest";
 import { Email } from "./Usuario";
 
-describe("Emails",()=>{
-    it('Should be instance of Error',async ()=>{
-        const mail = 'anderson.morais@top.com';
-        const result = Email.create(mail)
-        expect(result).toBeInstanceOf(Error);
-    })
+describe('Teste da classe Email', () => {
+    describe('Método create', () => {
+        it('deve criar um objeto Email quando o email é válido', () => {
+            const emailString = 'usuario@gmail.com';
+            const email = Email.create(emailString);
+            expect(email instanceof Email).toBe(true);
+            expect(email.value).toBe(emailString);
+        });
 
-    it('Should be false',async ()=>{
-        const mail = 'anderson.morais@top.com';
-        const result = Email.isValidMail(mail)
-        expect(result).toBe(false);
-    })
+        it('deve lançar uma exceção ao tentar criar um objeto Email com email inválido', () => {
+            const emailString = 'usuario@example';
+            expect(() => Email.create(emailString)).toThrowError(/Email fora do padrão/);
+        });
+    });
 
-    it('Should be false',async ()=>{
-        const mail = 'anderson.morais@top.com';
-        const result = Email.IsValidHost(mail)
-        expect(result).toBe(false);
-    })
-})
+    describe('Propriedade value', () => {
+        it('deve retornar o valor do email corretamente', () => {
+            const emailString = 'usuario@gmail.com';
+            const email = Email.create(emailString);
+            expect(email.value).toBe(emailString);
+        });
+    });
+});
