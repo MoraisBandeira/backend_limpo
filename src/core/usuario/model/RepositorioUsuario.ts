@@ -2,6 +2,7 @@ import IUsuario from "./Usuario";
 
 export default interface RepositoryUsuario{
     buscarUsuarioId(id:number):Promise<IUsuario>
+    atualizarUsuario(usuario:IUsuario):Promise<IUsuario>
     registrar(usuario:IUsuario):Promise<IUsuario>
     buscarTodos():Promise<IUsuario[]>
     atualizar():Promise<IUsuario | null>

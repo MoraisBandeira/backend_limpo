@@ -7,6 +7,9 @@ export default class RepositorioUsuarioPrisma implements RepositoryUsuario{
     constructor(){
         this.prisma = new PrismaClient();
     }
+    atualizarUsuario(usuario: IUsuario): Promise<IUsuario> {
+        throw new Error("Method not implemented.");
+    }
     async buscarUsuarioId(id: number): Promise<IUsuario> {
         const user = await this.prisma.usuario.findFirst({where:{id}})
         if(user){
